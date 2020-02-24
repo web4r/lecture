@@ -86,7 +86,7 @@ class Person extends CI_Controller {
 					'smtp_host' => 'smtp.mailgun.org',
 					'smtp_port' => 587,
 					'smtp_user' => 'postmaster@katsinov.techinfo.id',
-					'smtp_pass' => '8ba6cd74b5e12497c1e257eb364ddc6b-713d4f73-1b46f7f6',
+					'smtp_pass' => '646d00795c5290ca56c0ac546b31632d-7238b007-e5d9f2c0',
 					
 				  );
 
@@ -136,7 +136,7 @@ class Person extends CI_Controller {
 				'smtp_host' => 'smtp.mailgun.org',
 				'smtp_port' => 587,
 				'smtp_user' => 'postmaster@katsinov.techinfo.id',
-				'smtp_pass' => '8ba6cd74b5e12497c1e257eb364ddc6b-713d4f73-1b46f7f6',
+				'smtp_pass' => '646d00795c5290ca56c0ac546b31632d-7238b007-e5d9f2c0',
 				
 			  );
 
@@ -148,7 +148,7 @@ class Person extends CI_Controller {
 			$this->email->to($id->email);
 			
 			$this->email->subject('NON AKTIVASI AKUN E-OFFICE AAPT');
-			$this->email->message('Akun Anda Telah di NON AKTIFKAN karena surat keterangan sebagai pemilik akun tidak ada / kurang jelas');
+			$this->email->message('Akun Anda Telah di NON AKTIFKAN oleh administrator');
 
 			$this->email->send();
 
