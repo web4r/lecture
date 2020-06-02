@@ -14,32 +14,26 @@ class Admin extends CI_Controller {
 		}
 	
 
-		if ($this->session->userdata('status_akun')==2) {
+		if ($this->session->userdata('is_active')==1) {
 
 			$this->session->set_flashdata('no_account_verify','maaf akun anda belum terverifikasi');
 
-		redirect('Login');
+			redirect('Login');
 		}
 		
 	}
 
 	public function index() 
 	{
-		$data['totalUser'] = $this->UserModel->totalUser();
-		$data['notif'] = $this->UserModel->notifUser();	
-		$data['totalPortofolio'] = $this->PortofolioModel->totalPortofolio();
-		$data['totalNomorSurat'] = $this->SuratModel->totalNomorSurat();
-		$data['totalCloudFile'] = $this->CloudModel->totalCloudFile();
-		$id_user = $this->session->userdata('id_user');
-		$data['item'] = $this->UserModel->getById($id_user);
-
+		$id = $this->session->userdata('id_users');
+		$data['user'] = $this->UserModel->getById($id);
 		$data['main_admin'] = "backend/dashboard";
 		$this->load->view('layouts/admin',$data);
 		
 		
 	}
 
-
+	
 }
 
 

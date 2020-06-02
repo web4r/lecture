@@ -24,26 +24,24 @@
 				<div class="card">
 					<div class="card-body">
 						
-					<?php echo form_open_multipart('Backend/Person/updateUser/'.$person->id_user,array('class'=>'user')) ?>			
+					<?php echo form_open_multipart('Backend/Person/updateUser/'.$person->id_users,array('class'=>'user')) ?>			
+						
 						<div class="form-group row">
 						<?php 
 							
 							$data = array(
 								'1' => 'Administrator',
-								'2' => 'Direktur Utama',
-								'3' => 'Direktur Keuangan',
-								'4' => 'Finance',
-								'5' => 'HRD',
-								'6' => 'Legal',
-								'7' => 'Konstruksi',
-								'8' => 'IT Development',
-								'9' => 'Research and Development',
+								'2' => 'Staff',
+								'3' => 'Pengajar',
+								'4' => 'Peserta',
+								
 
 
 							);
-							echo form_dropdown('role_akun',$data,set_value('stat_akun',$person->role_akun));
+							echo form_dropdown('role_id',$data,set_value('stat_akun',$person->role_id));
 						?>
 						</div>
+
 						<div class="form-group row">
 							<?php 
 								echo form_label('Nama Lengkap');
@@ -89,47 +87,8 @@
 							?>
 							<?php echo form_input($data) ?>
 						</div>
-
-						<div class="form-group row">
-
-							<?php 
-								echo form_label('Nomor Fax');
-								$data = array(
-
-									'class' => 'form-control',
-									'name' => 'fax',
-									'value' => $person->fax
-								);
 							
-							?>
-							<?php echo form_input($data) ?>
-							
-						</div>	
-						<div class="form-group row">
-							<label class="control-label">Hak Approval</label><br>	
-						</div>	
-						
-						<div class="form-group row">
-
-							<div class="form-check form-check-inline">
-								
-								<input class="form-check-input" type="radio" name="approval" value="1" <?php 
-									echo set_value('approval', $person->approval) == 1 ? "checked" : ""; 
-								?> />Ya
-
-								<input class="form-check-input" type="radio" name="approval" value="0" <?php 
-									echo set_value('approval', $person->approval) == 0 ? "checked" : ""; 
-								?> />Tidak
-								
-							</div>
-							
-							
-							
-						</div>
-
-						
-
-
+					
 						<div class="form-group">
 						<?php 
 							$data  = array(

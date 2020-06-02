@@ -9,7 +9,7 @@
 			</strong> 
 		</div>
 	<?php endif; ?>
-	<?php echo form_open('Backend/Person/updatePassword/'.$person->id_user) ?>
+	<?php echo form_open('Backend/Person/updatePassword/'.$person->id_users) ?>
 	<div class="form-group">
 		<?php 
 				echo form_label('Password Baru');

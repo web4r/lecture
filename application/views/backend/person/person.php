@@ -32,6 +32,15 @@
 			</strong> 
 		</div>
 	<?php endif; ?>
+
+	<?php if ($this->session->flashdata('update')): ?>
+	<div class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong>
+			<?php echo $this->session->flashdata('update'); ?>
+		</strong> 
+	</div>
+	<?php endif; ?>
 </section>
 
 <section class="person-content">
@@ -46,83 +55,57 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<table class="table table-bordered" id="usersTable">
-					<thead>
-						<tr>
-							<th>Nama Lengkap</th>
-							<th>Email</th>
-							<th>Divisi</th>
-							<th>Status Akun</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php foreach($person as $item) 
-							{ 
-								if($item->stat_akun == 1)
-								{
-									$statusAkun = '<span class="badge badge-success">Sudah Terverifikasi</span>';
-								}
-								if($item->stat_akun == 2)
-								{
-									$statusAkun = '<span class="badge badge-danger">Belum Terverifikasi</span>';
-								}
+				<div class="table-responsive">
+					<table class="table table-bordered" id="usersTable">
+						<thead>
+							<tr>
+								<th>Nama Lengkap</th>
+								<th>Email</th>
+								<th>Status Akun</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach($person as $item) 
+								{ 
+									if($item->is_active == 1)
+									{
+										$statusAkun = '<span class="badge badge-danger">Belum Terverifikasi</span>';
+									}
+									if($item->is_active == 2)
+									{
+										$statusAkun = '<span class="badge badge-primary">Sudah Terverifikasi</span>';
+									}
 
-								
-								if($item->role_akun == 1)
-								{
-									$roleAkun = '<span class="badge badge-success">Administrator</span>';
-								}
-								if($item->role_akun == 2)
-								{
-									$roleAkun = '<span class="badge badge-primary">Direktur Utama</span>';
-								}
-								if($item->role_akun == 3)
-								{
-									$roleAkun = '<span class="badge badge-primary">Direktur Keuangan</span>';
-								}
-								if($item->role_akun == 4)
-								{
-									$roleAkun = '<span class="badge badge-primary">Finance</span>';
-								}
-
-								if($item->role_akun == 5)
-								{
-									$roleAkun = '<span class="badge badge-primary">HRD</span>';
-								}
-								if($item->role_akun == 6)
-								{
-									$roleAkun = '<span class="badge badge-primary">Legal</span>';
-								}
-								if($item->role_akun == 7)
-								{
-									$roleAkun = '<span class="badge badge-primary">Konstruksi</span>';
-								}
-								if($item->role_akun == 8)
-								{
-									$roleAkun = '<span class="badge badge-primary">IT Development</span>';
-								}
-								if($item->role_akun == 9)
-								{
-									$roleAkun = '<span class="badge badge-primary">Research and Development</span>';
-								}
-						?>
-						<tr>
-							<td><?php echo $item->fullname ?></td>
-							<td><?php echo $item->email ?></td>
-							<td><?php echo $roleAkun ?></td>
-							<td><?php echo $statusAkun ?></td>
-							<td>
-								<a href="<?php echo base_url() ?>Backend/Person/show/<?php echo $item->id_user ?>" class="btn btn-primary"><i class="fa fa-eye"></i></a>
-								<a href="<?php echo base_url() ?>Backend/Person/edit/<?php echo $item->id_user ?>" class="btn btn-success"><i class="fa fa-edit"></i></a>
-								<a href="<?php echo base_url() ?>Backend/Person/delete/<?php echo $item->id_user ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-							</td>
-						</tr>
-						<?php 
-							}	
-						?>
-					</tbody>
-				</table>
+							?>
+							<tr>
+								<td><?php echo $item->fullname ?></td>
+								<td><?php echo $item->email ?></td>
+								<td><?php echo $statusAkun ?></td>
+								<td>
+									<div class="flex-container" style="display: flex; flex-wrap: wrap;">
+										<a data-toggle="tooltip" title="View" href="<?php echo base_url() ?>Backend/Person/show/<?php echo $item->id_users ?>" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+										<a data-toggle="tooltip" title="Edit" href="<?php echo base_url() ?>Backend/Person/edit/<?php echo $item->id_users ?>" class="btn btn-success"><i class="fa fa-edit"></i></a>
+										<a data-toggle="tooltip" title="Delete" href="<?php echo base_url() ?>Backend/Person/delete/<?php echo $item->id_users ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+										<?php if($item->is_active == 1) : ?>
+											<?php echo form_open('Backend/Person/updateVerivication/'. $item->id_users) ?>
+													<button data-toggle="tooltip" title="Akun Tidak Aktif" class="btn btn-secondary" type="submit"><i class="fa fa-window-close"></i></button>
+											<?php echo form_close() ?>
+										<?php endif; ?>
+										<?php if($item->is_active == 2) : ?>
+											<?php echo form_open('Backend/Person/upateNonActivation/'. $item->id_users) ?>
+												<button data-toggle="tooltip" title="Akun Aktif" class="btn btn-info" type="submit"><i class="fa fa-check"></i></button>
+											<?php echo form_close() ?>
+										<?php endif; ?>
+									</div>
+								</td>
+							</tr>
+							<?php 
+								}	
+							?>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -139,21 +122,17 @@
         </button>
       </div>
       <div class="modal-body">
-	  <?php echo form_open_multipart('Registrasi/addUser',array('class'=>'user')) ?>
+	  <?php echo form_open('Registrasi/addUser',array('class'=>'user')) ?>
 
 			
 	  		<div class="form-group row">
-				<select  name="role_akun"  class="form-control">
+				<select name="role_id"  class="form-control">
 						<option>Pilih Divisi</option>	
-						<option value="1">Administrator</option>
-						<option value="2">Direktur Utama</option>
-						<option value="3">Direktur Keuangan</option>	
-						<option value="4">Finance</option>
-						<option value="5">HRD</option>
-						<option value="6">Legal</option>
-						<option value="7">Konstruksi</option>
-						<option value="8">IT Development</option>
-						<option value="9">Research and Development</option>
+						<?php 
+							foreach($role_user as $role){
+						?>
+							<option value="<?php echo $role->id_role ?>"><?php echo $role->role_name ?></option>
+						<?php } ?>
 				</select>
 			</div>
 			<div class="form-group row">
@@ -191,41 +170,13 @@
 
 							'class' => 'form-control',
 							'name' => 'phone',
-							'placeholder' => 'Telepon'
-
+							'type' => 'number',
+							'placeholder' => 'Nomor Telepon WA'
 						);
 					
 					?>
 					<?php echo form_input($data) ?>
-			</div>
-
-			<div class="form-group row">
-
-				<?php 
-					$data = array(
-
-						'class' => 'form-control',
-						'name' => 'fax',
-						'placeholder' => 'Fax'
-					);
-				
-				?>
-				<?php echo form_input($data) ?>
-					
-			</div>	
-
-			<!-- <div class="form-group">
-				<div class="input-group mb-3">
-					
-					<div class="custom-file">
-						<input type="file" name="avatar" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-						<label class="custom-file-label" for="inputGroupFile01">Upload Foto Max 1mb</label>
-						
-					</div>
-					
-				</div>
-				
-			</div> -->
+			</div>			
 				
 		
 

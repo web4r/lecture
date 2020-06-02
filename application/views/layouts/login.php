@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>E-Office - Login</title>
+  <title>Tech - Admin</title>
 
   <!-- Custom fonts for this template-->
   <link href="<?php echo base_url() ?>assets/backend/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -21,7 +21,7 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-gradient-dark">
 
   <div class="container">
 
@@ -30,16 +30,17 @@
 
       <div class="col-xl-10 col-lg-12 col-md-9">
 
-        <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card o-hidden border-0 shadow-lg mt-5">
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
-              <div class="col-lg-6 d-none d-lg-block  bg-primary">
+              <div class="col-lg-6 d-none d-lg-block  bg-danger">
 					<div class="text-center">
-						<img src="<?php echo base_url() ?>assets/img/logo.png" alt="Login Admin" class="img-fluid"/>
+						<!-- <img src="<?php echo base_url() ?>assets/img/logo.png" alt="Login Admin" class="img-fluid"/> -->
+						<h1 class="text-white pt-5 ">Tech Class Admin</h1>
 					</div>	
 					<div class="text-center">
-						<h4 class="text-center text-white">E-Office V1.0</h4>
+						<h4 class="text-center text-white">Tech Class V1.0</h4>
 						<small>Build Number : <?php echo date('Y.m.d') . rand(1,99) ?></small>
 					</div>
 				</div>
@@ -129,7 +130,7 @@
 						<div class="form-group">
 							<?php 
 									$data = array(
-										'class' => 'btn btn-primary btn-user btn-block',
+										'class' => 'btn btn-danger btn-user btn-block',
 										'name' => 'submit',
 										'value' => 'Login Account'
 									)

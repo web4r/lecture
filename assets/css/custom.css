@@ -1,0 +1,26 @@
+/************Placeholder CSS******************/
+
+#bg-placeholder {
+    background-color: rgb(0, 3, 46);
+}
+
+.bg-placeholder-detail-class {
+    background-color: rgb(0, 0, 0);
+}
+
+
+/************Promote CSS******************/
+
+#bg-promoted-note {
+    background-color: aquamarine;
+}
+
+
+/************Lecture CSS******************/
+
+
+/************Detail Class CSS******************/
+
+.detail-page-class-header {
+    background-color: black;
+}

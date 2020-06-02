@@ -6,6 +6,11 @@ class Login extends CI_Controller {
 
 	public function index()
 	{
+		if ($this->session->userdata('is_loggedin')) {
+			if($this->session->userdata('is_active')==2){
+				redirect('Admin');
+			}
+		}
 		$this->load->view('layouts/login');
 	}
 
@@ -29,7 +34,7 @@ class Login extends CI_Controller {
 			if($access)
 			{
 					$user_data = array(
-						'id_user' => $access,
+						'id_users' => $access,
 						'email' => $email,
 						'password' => $password,
 						'is_loggedin' => TRUE

@@ -11,11 +11,9 @@ class Registrasi extends CI_Controller {
 	public function addUser()
 	{
 		    
-			$this->form_validation->set_rules('role_akun','Pilih Divisi','required');
+			$this->form_validation->set_rules('role_id','Pilih Divisi','required');
 			$this->form_validation->set_rules('fullname','Nama Lengkap','required');
 			$this->form_validation->set_rules('email','Email','required');
-			$this->form_validation->set_rules('phone','Phone','required');
-			$this->form_validation->set_rules('fax','Fax','required');
 			
 			
 			
@@ -34,13 +32,13 @@ class Registrasi extends CI_Controller {
 					$encrypt_pass = password_hash(123456,PASSWORD_BCRYPT,$options);
 
 					$data = array(
-						'role_akun' => $this->input->post('role_akun'),
+						'role_id' => $this->input->post('role_id'),
 						'fullname' => $this->input->post('fullname'),
 						'email' => $this->input->post('email'),
 						'password' => $encrypt_pass,
 						'phone' => $this->input->post('phone'),
-						'fax' => $this->input->post('fax'),
-						'stat_akun' => 2
+						'is_active' => 1,
+						'created_at' => date('Y-m-d')
 					);
 					
 					if($this->RegistrasiModel->create_user($data))

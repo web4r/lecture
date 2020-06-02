@@ -19,11 +19,11 @@ class Person extends CI_Controller {
 
 
 
-		if ($this->session->userdata('status_akun')==2) {
+		if ($this->session->userdata('is_active')==1) {
 
 			$this->session->set_flashdata('no_account_verify','maaf akun anda belum terverifikasi');
 
-		redirect('Login');
+			redirect('Login');
 		}
 		
 		
@@ -31,15 +31,15 @@ class Person extends CI_Controller {
 	
 	public function index() 
 	{
-		
+		$data['role_user'] = $this->UserModel->getRole();
 		$data['person'] = $this->UserModel->getVerify();
 		$data['main_admin'] = "backend/person/person";
 		$this->load->view('layouts/admin',$data);
 	}
 
-	public function show($id_user)
+	public function show($id)
 	{
-		$data['person'] = $this->UserModel->getById($id_user);
+		$data['person'] = $this->UserModel->getById($id);
 		$data['main_admin'] = "backend/person/view";
 		$this->load->view('layouts/admin',$data);
 	}
@@ -51,17 +51,17 @@ class Person extends CI_Controller {
 		$this->load->view('layouts/admin',$data);
 	}
 
-	public function updateVerivication($id_user)
+	public function updateVerivication($id)
 	{
 		
-		$id = $this->UserModel->getById($id_user);
-		$id_user = $id->id_user;
+		$id = $this->UserModel->getById($id);
+		
 		$data = array(
 					
-			'stat_akun' => 1
+			'is_active' => 2
 		);
 
-		$update = $this->UserModel->updateVerify($id_user,$data);
+		$update = $this->UserModel->updateVerify($id->id_users,$data);
 		if($update)
 		{
 			
@@ -86,37 +86,37 @@ class Person extends CI_Controller {
 					'smtp_host' => 'smtp.mailgun.org',
 					'smtp_port' => 587,
 					'smtp_user' => 'postmaster@katsinov.techinfo.id',
-					'smtp_pass' => '646d00795c5290ca56c0ac546b31632d-7238b007-e5d9f2c0',
+					'smtp_pass' => '2e912bff8357fd8bfd32fd9651a67b8f-9dda225e-0d61c1fe',
 					
 				  );
 
 
 			$this->email->initialize($config);
 
-			$this->email->from('adirahman@aaptechmil.com', 'Adi Rahman');
+			$this->email->from('hello.devapps@gmail.com', 'Techinfo.id');
 			$this->email->to($id->email);
 			  
 			
-			$this->email->subject('AKTIVASI AKUN E-OFFICE AAPT');
+			$this->email->subject('AKTIVASI AKUN Pengajar Kelas Techinfo');
 			$this->email->message('Akun Anda Telah Aktif, silahkan login dengan Email ' .$id->email. ' dan Password Default adalah 123456 , Segera Ganti Password Anda');
 		
 			$this->email->send();
 			
 			$this->session->set_flashdata('update','Update Verification Success');
-			redirect('Backend/Person/show/'.$id_user);
+			redirect('Backend/Person/');
 		}		
 	}
 
-	public function upateNonActivation($id_user)
+	public function upateNonActivation($id)
 	{
-		$id = $this->UserModel->getById($id_user);
-		$id_user = $id->id_user;
+		$id = $this->UserModel->getById($id);
+		
 		$data = array(
 					
-			'stat_akun' => 2
+			'is_active' => 1
 		);
 
-		$update = $this->UserModel->updateVerify($id_user,$data);
+		$update = $this->UserModel->updateVerify($id->id_users,$data);
 		if($update)
 		{
 			$this->load->library('email');
@@ -136,7 +136,7 @@ class Person extends CI_Controller {
 				'smtp_host' => 'smtp.mailgun.org',
 				'smtp_port' => 587,
 				'smtp_user' => 'postmaster@katsinov.techinfo.id',
-				'smtp_pass' => '646d00795c5290ca56c0ac546b31632d-7238b007-e5d9f2c0',
+				'smtp_pass' => '2e912bff8357fd8bfd32fd9651a67b8f-9dda225e-0d61c1fe',
 				
 			  );
 
@@ -144,10 +144,10 @@ class Person extends CI_Controller {
 			
 			$this->email->initialize($config);
 
-			$this->email->from('adirahman@aaptechmil.com', 'Adi Rahman');
+			$this->email->from('hello.devapps@gmail.com', 'Techinfo.id');
 			$this->email->to($id->email);
 			
-			$this->email->subject('NON AKTIVASI AKUN E-OFFICE AAPT');
+			$this->email->subject('NON AKTIVASI AKUN Pengajar Kelas Techinfo');
 			$this->email->message('Akun Anda Telah di NON AKTIFKAN oleh administrator');
 
 			$this->email->send();
@@ -156,52 +156,50 @@ class Person extends CI_Controller {
 
 			
 			$this->session->set_flashdata('update','Non Activation Success');
-			redirect('Backend/Person/show/'.$id_user);
+			redirect('Backend/Person/');
 		}		
 	}
 
-	public function showPassword($id_user)
+	public function showPassword($id)
 	{
-		$data['person'] = $this->UserModel->getById($id_user);
+		$data['person'] = $this->UserModel->getById($id);
 		$data['main_admin'] = "backend/person/resetPassword";
 		$this->load->view('layouts/admin',$data);
 		
 	}
-	public function updatePassword($id_user)
+	public function updatePassword($id)
 	{
-		$id = $this->UserModel->getById($id_user);
+		$iduser = $this->UserModel->getById($id);
 		$options = ['cost' => 12];
 		$encrypt_pass = password_hash($this->input->post('password'),PASSWORD_BCRYPT,$options);
 		
 		$data = array(
 			'password' => $encrypt_pass
 		);
-		$update = $this->UserModel->updateAuthPassword($id_user,$data);
+		$update = $this->UserModel->updateAuthPassword($id,$data);
 		if($update)
 		{
 			$this->session->set_flashdata('password_change','Password Update Successfully');
-			redirect('Backend/Person/showPassword/'.$id->id_user);
+			redirect('Backend/Person/showPassword/'.$iduser->id_users);
 		}
 	}
 
-	public function edit($id_user)
+	public function edit($id)
 	{
-		$data['person'] = $this->UserModel->getById($id_user);
+		$data['person'] = $this->UserModel->getById($id);
 		$data['main_admin'] = "backend/person/edit";
 		$this->load->view('layouts/admin',$data);
 	}
 
-	public function updateUser($id_user)
+	public function updateUser($id)
 	{
-		$person = $this->UserModel->getById($id_user);
-		$idperson = $person->id_user;
+		$person = $this->UserModel->getById($id);
+		$idperson = $person->id_users;
 		$data = array(
-			'role_akun' => $this->input->post('role_akun'),
+			'role_id' => $this->input->post('role_id'),
 			'fullname' => $this->input->post('fullname'),
 			'email' => $this->input->post('email'),
 			'phone' => $this->input->post('phone'),
-			'fax' => $this->input->post('fax'),
-			'approval' => $this->input->post('approval')
 		);
 
 		$update = $this->UserModel->update($idperson,$data);
