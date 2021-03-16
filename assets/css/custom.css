@@ -1,26 +1,74 @@
-/************Placeholder CSS******************/
+/* Jumbotron */
 
-#bg-placeholder {
-    background-color: rgb(0, 3, 46);
+.jumbotron {
+    background-image: url('../../assets/img/bg-2.jpg');
+    background-size: cover;
+    height: 600px;
+    text-align: center;
+    position: relative;
+    border-bottom: 3px solid #8C8C8C;
 }
 
-.bg-placeholder-detail-class {
-    background-color: rgb(0, 0, 0);
+.jumbotron .container {
+    z-index: 1;
+    position: relative;
+}
+
+.jumbotron::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 80%;
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    position: absolute;
+    bottom: 0;
+}
+
+.jumbotron .display-4 {
+    color: white;
+    margin-top: 150px;
+    font-weight: 200;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+    font-size: 40px;
+    margin-bottom: 40px;
+}
+
+.jumbotron .display-4 span {
+    font-weight: 500;
+}
+
+.ads {
+    border-bottom: 1px solid #000000;
+}
+
+.icon-ads {
+    border-radius: 40px;
+    font-size: 30px !important;
+    color: #151414;
+    /* background-color: #A5DBE0; */
+    padding: 10px;
+    margin-bottom: 8px;
+    display: inline;
+}
+
+#bg-navbar-custom {
+    background-image: linear-gradient( 135deg, #52E5E7 10%, #130CB7 100%);
+}
+
+#bg-card-custom-home {
+    /* background-image: radial-gradient( circle farthest-corner at 12.3% 19.3%, rgba(85, 88, 218, 1) 0%, rgba(95, 209, 249, 1) 100.2%); */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#bg-btn-home-custom {
+    /* background-image: radial-gradient( circle farthest-corner at 10% 20%, rgba(90, 92, 106, 1) 0%, rgba(32, 45, 58, 1) 81.3%); */
+    color: #fff;
 }
 
 
-/************Promote CSS******************/
+/* change hamburger button border color */
 
-#bg-promoted-note {
-    background-color: aquamarine;
-}
-
-
-/************Lecture CSS******************/
-
-
-/************Detail Class CSS******************/
-
-.detail-page-class-header {
-    background-color: black;
+button.navbar-toggler {
+    border-color: yellow;
 }

@@ -46,7 +46,7 @@
 					<tr>
 						<td><?php echo $materi->theory_name ?></td>
 						<td>
-						<a href="<?php echo base_url() ?>Backend/WebClass/deleteMateriClass/<?php echo $materi->id_history ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+							<a href="<?php echo base_url() ?>Backend/WebClass/deleteMateriClass/<?php echo $materi->id_history ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 							<a href="<?php echo base_url() ?>Backend/WebClass/editMateriClass/<?php echo $materi->id_history ?>" class="btn btn-primary"><i class="fa fa-edit"></i></a>
 						</td>
 					</tr>

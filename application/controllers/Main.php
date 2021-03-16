@@ -12,8 +12,12 @@ class Main extends CI_Controller{
     public function index(){
 		$id = $this->session->userdata('id_student');
 		$data["profile"] = $this->ContentModel->cek($id);
-        $data['contentClass'] = $this->ContentModel->getAll();
-
+		$data['contentClass'] = $this->ContentModel->getAll();
+		$data['total_class'] = $this->ContentModel->get_statistic_class();
+		$data['total_student'] = $this->ContentModel->get_statistic_student();
+		$data['total_materi'] = $this->ContentModel->get_statistic_materi();
+		
+		
         $data['content'] = "app/content";
         $this->load->view('layouts/main',$data);
 
@@ -35,12 +39,20 @@ class Main extends CI_Controller{
         $this->load->view('layouts/main',$data);
     }
 
-    public function activateAccount()
+    public function activateAccount($hash)
     {
         
-        $data['content'] = "app/page/activation";
-        $this->load->view('layouts/main',$data);
-    }
+
+        if($this->UsersModel->verifyEmail($hash)){
+            $this->UsersModel->getByIdStudent($hash);
+            $this->session->set_flashdata('accountActive','Selamat Akun anda Sudah Aktif, Silahkan Login');
+            // redirect('Main/activateAccount/'.$hash->is_token);
+            $data['content'] = "app/page/activation";
+            $this->load->view('layouts/main',$data);
+        }
+        
+	}
+
 
  
 

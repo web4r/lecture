@@ -1,4 +1,5 @@
 <div class="container-fluid" id="bg-placeholder">
+
     <section class="block-lecture mt-4 pb-4 pt-4">
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6">
@@ -6,21 +7,27 @@
                 <ul class="list-group">
                     <li class="list-group-item">Nama Pengajar : <?php echo $detailClass->fullname ?></li>
                     <li class="list-group-item">Judul Kelas : <?php echo $detailClass->class_name ?></li>
-                    <li class="list-group-item">Tipe Kelas : <?php echo $detailClass->type_name ?></li>
-                </ul>
-                <!-- <div class="section-btn-action pt-2 text-white">
-					
-					
-					<div class="section-btn-action pt-2 text-white">
-					id user bug : <?php echo  $profile->id_student?>
-					<br>
-					id user setelah login : <?= var_dump($this->session->userdata('id_student')) ?>
-					
-					
-				</div>
-			</div> -->
-			<a href="<?php echo base_url() ?>Frontend/Lecture/buy/<?php echo $detailClass->id_class ?> " class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Beli Kelas</a>
-            </div>
+					<li class="list-group-item">Tipe Kelas : <?php echo $detailClass->type_name ?></li>
+					<li class="list-group-item">Jumlah Modul : <?php echo $total ?></li>
+					<?php if($detailClass->type_name == 'Premium') : ?>
+						<li class="list-group-item">Harga Kelas : Rp. <?php echo number_format($detailClass->class_price,2) ?></li>
+					<?php endif; ?>
+
+					</ul>
+
+				
+		  	<?php if($detailClass->type_name == 'Gratis') : ?>
+				<a href="<?php echo base_url() ?>Frontend/Lecture/completeOrder/<?php echo $detailClass->id_class ?> " class="btn btn-primary btn-block"><i class="fas fa-shopping-cart"></i> Gabung Kelas Gratis</a>
+			<?php endif; ?>
+			<?php if($detailClass->type_name == 'Premium') : ?>
+				<a href="<?php echo base_url() ?>Frontend/Lecture/completeOrderPremium/<?php echo $detailClass->id_class ?> " class="btn btn-warning btn-block"><i class="fas fa-shopping-cart"></i> Gabung Kelas Premium</a>
+			<?php endif; ?>
+
+		
+			
+			
+			
+			</div>
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <h3 class="text-white">Preview Kelas</h3>
                 <div class="card">

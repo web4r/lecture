@@ -2,6 +2,16 @@
 
 class ClassWebModel extends CI_Model{
 
+	public function getAllClass(){
+		$this->db->select('*');
+		$this->db->from('tm_class');
+		$this->db->join('tm_class_type','tm_class_type.id_type = tm_class.class_type_id','inner');
+		$this->db->join('tm_users','tm_users.id_users = tm_class.user_id','inner');
+		$this->db->join('tm_class_category','tm_class_category.id_category = tm_class.class_category_id', 'inner');
+		$result  = $this->db->get();
+		return $result->result();
+	}
+
 	public function getByUsers($id)
 	{
 		$this->db->select('*');

@@ -33,9 +33,52 @@ class WebClass extends CI_Controller{
 		$this->load->view('layouts/admin',$data);
 	}
 
+
 	/**
 	 * Class CRUD
 	 */
+
+	public function AllClass(){
+		$data['all_class_data'] = $this->ClassWebModel->getAllClass();
+		$data['main_admin'] = "backend/class/web/all";
+		$this->load->view('layouts/admin',$data);
+	}
+
+	public function updateKelasAktif($id){
+		$id = $this->ClassWebModel->getInfoClass($id);
+		
+		$data = array(
+					
+			'class_status' => 1
+		);
+
+		$update = $this->ClassWebModel->update($id->id_class,$data);
+		if($update)
+		{
+
+			$this->session->set_flashdata('update','Kelas berhasil di aktivasi');
+			redirect('Backend/WebClass/AllClass');
+		}	
+	}
+
+	public function updateKelasNonAktif($id){
+		$id = $this->ClassWebModel->getInfoClass($id);
+		
+		$data = array(
+					
+			'class_status' => 0
+		);
+
+		$update = $this->ClassWebModel->update($id->id_class,$data);
+		if($update)
+		{
+
+			$this->session->set_flashdata('failed','Kelas berhasil di non aktivasi');
+			redirect('Backend/WebClass/AllClass');
+		}	
+	}
+
+
 
 	public function add()
 	{

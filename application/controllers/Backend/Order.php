@@ -27,7 +27,14 @@ class Order extends CI_Controller{
 
 	public function index()
 	{
-		$data['orderList'] = $this->OrderModel->get();
+		$id = $this->session->userdata('id_users');
+		$data['orderList'] = $this->OrderModel->get($id);
+		$data['main_admin'] = "backend/class/order/order";
+		$this->load->view('layouts/admin',$data);
+	}
+
+	public function orderAdmin(){
+		$data['orderAdminList'] = $this->OrderModel->getAdmin();
 		$data['main_admin'] = "backend/class/order/order";
 		$this->load->view('layouts/admin',$data);
 	}
@@ -35,24 +42,30 @@ class Order extends CI_Controller{
 	public function activateOrder($idOrder){
 		$id_student_order = $this->OrderModel->getByOrder($idOrder);
 		$idOrderStudent = $id_student_order->id_student_lecture;
-		if($id_student_order->class_status == 1){
-			$data = array('class_status' => 2);
-			if($data)
-			{
-				$this->OrderModel->updateOrder($id_student_order->id_student_lecture,$data);
-				$this->session->set_flashdata('order_update','Sukses Aktifkan Kelas');
-				redirect('Backend/Order');
-			}
-		}
-		if($id_student_order->class_status == 2){
-			$data = array('class_status' => 1);
+		
+			$data = array('status_order' => 2);
 			if($data)
 			{
 				$this->OrderModel->updateOrder($idOrderStudent,$data);
-				$this->session->set_flashdata('order_update','Sukses Non Aktifkan Kelas');
-				redirect('Backend/Order');
+				$this->session->set_flashdata('order_update','Sukses Aktifkan Kelas');
+				redirect('Backend/Order/orderAdmin');
 			}
-		}
+		
+		
+	}
+	public function nonOrder($idOrder){
+		$id_student_order = $this->OrderModel->getByOrder($idOrder);
+		$idOrderStudent = $id_student_order->id_student_lecture;
+
+		
+			$data = array('status_order' => 1);
+			if($data)
+			{
+				$this->OrderModel->updateOrder($idOrderStudent,$data);
+				$this->session->set_flashdata('order_non_update','Sukses Non Aktifkan Kelas');
+				redirect('Backend/Order/orderAdmin');
+			}
+		
 	}
 
 

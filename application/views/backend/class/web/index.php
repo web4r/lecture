@@ -43,6 +43,7 @@
 					<tr>
 						<th>Tipe Kelas</th>
 						<th>Nama Kelas</th>
+						<th>Status Kelas</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -53,6 +54,7 @@
 					<tr>
 						<td><?php echo ($class->class_type_id == 1) ? '<span class="badge badge-secondary">'.$class->type_name.'</span>' : '<span class="badge badge-primary">'.$class->type_name.'</span>' ?></td>
 						<td><?php echo  $class->class_name ?></td>
+						<td><?php echo ($class->class_status == 0) ? '<span class="badge badge-secondary">Draft</span>' : '<span class="badge badge-primary">Published</span>' ?></td>
 						<td>
 							<a href="<?php echo base_url() ?>Backend/WebClass/classInfo/<?php echo $class->id_class ?>" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Informasi Kelas"><i class="fa fa-eye"></i></a>
 							<a href="<?php echo base_url() ?>Backend/WebClass/classVideo/<?php echo $class->id_class ?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="+ Materi Video Kelas"><i class="fa fa-list"></i></a>

@@ -58,17 +58,33 @@
 			</li>
 
 			<li class="nav-item active">
-				<a class="nav-link" href="<?php echo base_url() ?>Backend/Order">
+				<a class="nav-link" href="<?php echo base_url() ?>Backend/Order/orderAdmin">
 				<i class="fa fa-file"></i>
 				<span>Order Kelas</span></a>
 			</li>
+			<li class="nav-item active">
+				<a class="nav-link" href="<?php echo base_url() ?>Backend/Faq">
+				<i class="fa fa-file"></i>
+				<span>FAQ</span></a>
+			</li>
 
 			<?php if($this->session->userdata('role_id') == 1)  :?>
+				<li class="nav-item active">
+					<a class="nav-link" href="<?php echo base_url() ?>Backend/WebClass/AllClass">
+					<i class="fa fa-file"></i>
+					<span>List Kelas Users</span></a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="<?php echo base_url() ?>Backend/Person/student">
+					<i class="fa fa-users"></i>
+					<span>Student</span></a>
+				</li>
 				<li class="nav-item active">
 					<a class="nav-link" href="<?php echo base_url() ?>Backend/Person">
 					<i class="fa fa-users"></i>
 					<span>Users</span></a>
 				</li>
+
 			<?php endif; ?>
 			
 			
@@ -166,18 +182,7 @@
 		$('#webTable').dataTable();
 		$('#orderTable').dataTable();
 	</script>
-	<script src="https://cdn.tiny.cloud/1/l5j0h1kiesia5sxr9aig7ytiptnf3469nax63xfp4thv3lb8/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-  <script>tinymce.init(
-		{
-			selector: 'textarea',
-      plugins: 'a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist  permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-      toolbar: 'a11ycheck addcomment showcomments casechange checklist code formatpainter  permanentpen table',
-      toolbar_mode: 'floating',
-      tinycomments_mode: 'embedded',
-      tinycomments_author: 'Tech Class',
-			width : "100%"
-		});
-	</script>
+	
 	
 </body>
 </html>

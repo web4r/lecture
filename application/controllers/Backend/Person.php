@@ -37,6 +37,14 @@ class Person extends CI_Controller {
 		$this->load->view('layouts/admin',$data);
 	}
 
+	public function student() 
+	{
+		// $data['role_user'] = $this->UserModel->getRole();
+		$data['student'] = $this->UserModel->getStudent();
+		$data['main_admin'] = "backend/person/student";
+		$this->load->view('layouts/admin',$data);
+	}
+
 	public function show($id)
 	{
 		$data['person'] = $this->UserModel->getById($id);
@@ -66,7 +74,7 @@ class Person extends CI_Controller {
 		{
 			
 
-			$this->load->library('email');
+			// $this->load->library('email');
 
 			// $config = Array(
 			// 	'protocol' => 'smtp',
@@ -81,26 +89,26 @@ class Person extends CI_Controller {
 			
 			
 			
-			$config = Array(
-					'protocol' => 'smtp',
-					'smtp_host' => 'smtp.mailgun.org',
-					'smtp_port' => 587,
-					'smtp_user' => 'postmaster@katsinov.techinfo.id',
-					'smtp_pass' => '2e912bff8357fd8bfd32fd9651a67b8f-9dda225e-0d61c1fe',
+			// $config = Array(
+			// 		'protocol' => 'smtp',
+			// 		'smtp_host' => 'smtp.mailgun.org',
+			// 		'smtp_port' => 587,
+			// 		'smtp_user' => 'postmaster@katsinov.techinfo.id',
+			// 		'smtp_pass' => '2e912bff8357fd8bfd32fd9651a67b8f-9dda225e-0d61c1fe',
 					
-				  );
+			// 	  );
 
 
-			$this->email->initialize($config);
+			// $this->email->initialize($config);
 
-			$this->email->from('hello.devapps@gmail.com', 'Techinfo.id');
-			$this->email->to($id->email);
+			// $this->email->from('hello.devapps@gmail.com', 'Techinfo.id');
+			// $this->email->to($id->email);
 			  
 			
-			$this->email->subject('AKTIVASI AKUN Pengajar Kelas Techinfo');
-			$this->email->message('Akun Anda Telah Aktif, silahkan login dengan Email ' .$id->email. ' dan Password Default adalah 123456 , Segera Ganti Password Anda');
+			// $this->email->subject('AKTIVASI AKUN Pengajar Kelas Techinfo');
+			// $this->email->message('Akun Anda Telah Aktif, silahkan login dengan Email ' .$id->email. ' dan Password Default adalah 123456 , Segera Ganti Password Anda');
 		
-			$this->email->send();
+			// $this->email->send();
 			
 			$this->session->set_flashdata('update','Update Verification Success');
 			redirect('Backend/Person/');
@@ -119,7 +127,7 @@ class Person extends CI_Controller {
 		$update = $this->UserModel->updateVerify($id->id_users,$data);
 		if($update)
 		{
-			$this->load->library('email');
+			// $this->load->library('email');
 
 			// $config = Array(
 			// 	'protocol' => 'smtp',
@@ -131,26 +139,26 @@ class Person extends CI_Controller {
 			// 	'newline' => "\r\n"
 			//   );
 
-			$config = Array(
-				'protocol' => 'smtp',
-				'smtp_host' => 'smtp.mailgun.org',
-				'smtp_port' => 587,
-				'smtp_user' => 'postmaster@katsinov.techinfo.id',
-				'smtp_pass' => '2e912bff8357fd8bfd32fd9651a67b8f-9dda225e-0d61c1fe',
+			// $config = Array(
+			// 	'protocol' => 'smtp',
+			// 	'smtp_host' => 'smtp.mailgun.org',
+			// 	'smtp_port' => 587,
+			// 	'smtp_user' => 'postmaster@katsinov.techinfo.id',
+			// 	'smtp_pass' => '2e912bff8357fd8bfd32fd9651a67b8f-9dda225e-0d61c1fe',
 				
-			  );
+			//   );
 
 			
 			
-			$this->email->initialize($config);
+			// $this->email->initialize($config);
 
-			$this->email->from('hello.devapps@gmail.com', 'Techinfo.id');
-			$this->email->to($id->email);
+			// $this->email->from('hello.devapps@gmail.com', 'Techinfo.id');
+			// $this->email->to($id->email);
 			
-			$this->email->subject('NON AKTIVASI AKUN Pengajar Kelas Techinfo');
-			$this->email->message('Akun Anda Telah di NON AKTIFKAN oleh administrator');
+			// $this->email->subject('NON AKTIVASI AKUN Pengajar Kelas Techinfo');
+			// $this->email->message('Akun Anda Telah di NON AKTIFKAN oleh administrator');
 
-			$this->email->send();
+			// $this->email->send();
 
 			
 

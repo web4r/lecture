@@ -7,18 +7,16 @@ class UsersModel extends CI_Model{
         if($verified){
             return $verified;
         }
-        else {
-            redirect('Main/register');
-        }
+        
     }
 
     public function create_user($data){
         return $this->db->insert('tm_students',$data);
     }
 
-    public function verifyEmail($key){
-        $data = array('is_active'=> 2 );
-        $this->db->where('is_token',$key)->get('tm_students');
+    public function verifyEmail($hash){
+        $data = array('is_active' => 2 );
+        $this->db->where('is_token',$hash);
         return $this->db->update('tm_students',$data);
     }
 

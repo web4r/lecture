@@ -3,6 +3,10 @@
 
 class UserModel extends CI_Model {
 
+	public function getStudent(){
+		return $this->db->get('tm_students')->result();
+	}
+
 	public function getAll()
 	{
 		$query = $this->db->get('tm_users');
